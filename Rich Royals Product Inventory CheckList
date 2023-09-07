@@ -1,0 +1,27 @@
+--Create Rich Royals Product Inventory CheckList
+
+CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, price INTEGER,monthly_sales_avg INTEGER, in_stock INTEGER,reorder_point INTEGER); 
+
+
+INSERT INTO products VALUES (1, "Royal Hydration Treatment", 20, 57, 112,48); 
+INSERT INTO products VALUES (2, "Majestic Mint Oil", 20, 83, 89, 79);
+INSERT INTO products VALUES (3, "Royal Curling Cream", 20, 56, 117,110);
+INSERT INTO products VALUES (4, "Rich Roller Dermaroller", 15, 52, 57, 48);
+INSERT INTO products VALUES (5, "Royal Wave Pomade", 12, 21, 278, 56);
+INSERT INTO products VALUES (6, "Rich Rag",10,19,37,42);
+INSERT INTO products VALUES (7, "Dynamic Detangling Brush",12,7, 0,36);
+INSERT INTO products VALUES (8, "Royal Hydration Shampoo", 15,31,0, 87);
+INSERT INTO products VALUES (9, "Royal Curved Brush", 9, 11, 27, 17);
+
+--display the database ordered by name in alphaetically order
+SELECT * FROM products
+ORDER BY name ASC;
+
+--display items that are out of stock
+SELECT* FROM products 
+WHERE in_stock = 0;
+
+--display all the items that need to be reordered ordered from most popular to least popular
+SELECT * FROM products 
+WHERE in_stock <= reorder_point 
+ORDER BY monthly_sales_avg DESC;
