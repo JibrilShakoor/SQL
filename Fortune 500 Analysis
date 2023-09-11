@@ -55,3 +55,55 @@ VALUES
     ('Company II', 'Telecommunications', 110.5, 2000, 1, 21, 12, 4.9),
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
+
+
+
+# analysis begins
+
+SELECT COUNT(*)
+FROM fortune_companies;
+
+# Which company generates the lowest revenue?
+
+SELECT company_name, MIN(revenue)
+FROM fortune_companies
+ORDER BY MIN(revenue);
+
+
+# Which industry has the highest turn over rate when the company has less than 5000 employees?
+
+SELECT industry,AVG(avg_employee_tenure)
+FROM fortune_companies
+GROUP BY industry
+HAVING employees < 5000
+ORDER BY AVG(avg_employee_tenure);
+
+# On average How much paid time off do companies that has over 100,000 employees give?
+
+SELECT AVG(paid_time_off_days)
+FROM fortune_companies
+WHERE employees > 100000;
+
+# Do companies with more paid time off and higher maternity leave weeks have less avg employee turnover?
+
+SELECT AVG(maternity_leave_weeks),
+CASE WHEN avg_employee_tenure > 7.0 THEN "HIGH"
+WHEN avg_employee_tenure >= 5.5 THEN "MED"
+ELSE "LOW"
+END AS turnover_rate
+FROM fortune_companies
+GROUP BY turnover_rate
+ORDER BY avg_employee_tenure;
+
+
+SELECT AVG(paid_time_off_days),
+CASE WHEN avg_employee_tenure > 7.0 THEN "HIGH"
+WHEN avg_employee_tenure >= 5.5 THEN "MED"
+ELSE "LOW"
+END AS turnover_rate
+FROM fortune_companies
+GROUP BY turnover_rate
+ORDER BY avg_employee_tenure;
+
+
+
